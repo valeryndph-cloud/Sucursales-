@@ -13,8 +13,8 @@ df_bogota = pd.read_excel("sucursal_bogota.xlsx")
 #print(df_medellin.columns)
 
 #Agrupar archivos por tipo .csv y xlsx
-archivos_csv = glob.glob("*.csv")
-archivos_xlsx = glob.glob("*.xlsx")
+archivos_csv = glob.glob("sucursal_*.csv")
+archivos_xlsx = glob.glob("sucursal_*.xlsx")
 
 #print (archivos_csv)
 
