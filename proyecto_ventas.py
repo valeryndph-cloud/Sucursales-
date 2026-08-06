@@ -44,20 +44,44 @@ for archivo in archivos_xlsx:
     print(f"Leidos: {archivo} - {len(df)}")
 
 
- # Unificar todos los informes en un solo DataFrame
+# Unificar todos los informes en un solo DataFrame
 for i, df in enumerate(lista_informes):
-    if'Fecha_Venta' in df.columns:
+    if 'Fecha_Venta' in df.columns:
         lista_informes[i] = df.rename(columns={
-        "Fecha_Venta" :"fecha","Producto": "producto",
-        "Categoria": "categoria", "Cant": "cantidad",
-        "Valor_Unitario": "precio_unitario",
-        "Vendedor": "vendedor", "Pago":"metodo_pago"
+            "Fecha_Venta": "fecha",
+            "Producto": "producto",
+            "Categoria": "categoria",
+            "Cant": "cantidad",
+            "Valor_Unitario": "precio_unitario",
+            "Vendedor": "vendedor",
+            "Pago": "metodo_pago"
         })
 
 df_consolidado = pd.concat(lista_informes, ignore_index=True)
 print(df_consolidado)
 print(f"Total de registros: {len(df_consolidado)}")
-#df_consolidado = df_consolidado.to_csv("Informe_sucursales", index = False)
 
-        
+# Eliminar filas duplicadas
+filas_antes = len(df_consolidado)
+df_consolidado = df_consolidado.drop_duplicates()
+
+print(f"Filas antes: {filas_antes}")
+print(f"Filas después: {len(df_consolidado)}")
+
+# Revisar valores nulos
+print(df_consolidado.isnull().sum())
+
+# Rellenar valores nulos
+df_consolidado["precio_unitario"] = df_consolidado["precio_unitario"].fillna(0)
+df_consolidado["vendedor"] = df_consolidado["vendedor"].fillna("Sin vendedor")
+df_consolidado["metodo_pago"] = df_consolidado["metodo_pago"].fillna("Sin especificar")
+
+# Verificar que ya no haya valores nulos
+print(df_consolidado.isnull().sum())
+
+# Guardar el archivo limpio
+df_consolidado.to_excel("consolidado_limpio.xlsx", index=False)
+print("Archivo guardado correctamente.")
+
+  
 
