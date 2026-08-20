@@ -38,3 +38,23 @@ python analisis_rama_36.py
 ```
 
 El programa realiza el análisis de los datos de ventas y permite obtener información sobre las categorías, vendedores, productos y métodos de pago.
+
+## Resultados y hallazgos
+
+El análisis de los datos permitió obtener los siguientes resultados:
+
+* La categoría con mayor valor de ventas fue **Electrónica**, con **$3.265.600**.
+* La categoría **Ropa** registró **$2.495.000** en ventas.
+* El vendedor con mayor participación fue **Camila Ruiz**, con **29,5 %**.
+* Existe un empate entre **Cargador USB-C** y **Jean clásico**, con **10 apariciones** cada uno.
+* El método de pago con mayor valor registrado fue **Efectivo**, con **$1.535.100**.
+
+### Tabla de resultados
+
+| Resultado                       | Valor                                          |
+| ------------------------------- | ---------------------------------------------- |
+| Ventas de Electrónica           | $3.265.600                                     |
+| Ventas de Ropa                  | $2.495.000                                     |
+| Mayor participación de vendedor | Camila Ruiz — 29,5 %                           |
+| Productos con mayor frecuencia  | Cargador USB-C y Jean clásico — 10 apariciones |
+| Método de pago con mayor valor  | Efectivo — $1.535.100                          |
