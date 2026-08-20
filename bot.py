@@ -1,0 +1,109 @@
+import pandas as pd 
+import glob 
+# Exploracion de los datos y diferentes tipos de archivos 
+#.csv y .xlsx
+
+df_medellin = pd.read_csv("sucursal_medellin.csv")
+#print(df_medellin.head(3))
+
+df_bogota = pd.read_excel("sucursal_bogota.xlsx")
+#print(df_bogota.head(3))
+
+#print(df_bogota.columns)
+#print(df_medellin.columns)
+
+#Agrupar archivos por tipo .csv y xlsx
+archivos_csv = glob.glob("sucursal_*.csv")
+archivos_xlsx = glob.glob("sucursal_*.xlsx")
+
+#print (archivos_csv)
+
+
+for archivo in archivos_csv:
+    df = pd.read_csv(archivo)
+    print(f"\n{archivo}")
+    print(df.columns.tolist())
+
+for archivo in archivos_xlsx:
+    df = pd.read_excel(archivo)
+    print(f"\n{archivo}")
+    print(df.columns.tolist())
+
+
+
+lista_informes = []
+
+for archivo in archivos_csv:
+    df = pd.read_csv(archivo)
+    lista_informes.append(df)
+    print(f"Leidos: {archivo} - {len(df)}")
+
+for archivo in archivos_xlsx:
+    df = pd.read_excel(archivo)
+    lista_informes.append(df)
+    print(f"Leidos: {archivo} - {len(df)}")
+
+
+# Unificar todos los informes en un solo DataFrame
+for i, df in enumerate(lista_informes):
+    if 'Fecha_Venta' in df.columns:
+        lista_informes[i] = df.rename(columns={
+            "Fecha_Venta": "fecha",
+            "Producto": "producto",
+            "Categoria": "categoria",
+            "Cant": "cantidad",
+            "Valor_Unitario": "precio_unitario",
+            "Vendedor": "vendedor",
+            "Pago": "metodo_pago"
+        })
+
+df_consolidado = pd.concat(lista_informes, ignore_index=True)
+print(df_consolidado)
+print(f"Total de registros: {len(df_consolidado)}")
+
+# Eliminar filas duplicadas
+filas_antes = len(df_consolidado)
+df_consolidado = df_consolidado.drop_duplicates()
+
+print(f"Filas antes: {filas_antes}")
+print(f"Filas después: {len(df_consolidado)}")
+
+# Revisar valores nulos
+print(df_consolidado.isnull().sum())
+
+# Rellenar valores nulos
+df_consolidado["precio_unitario"] = df_consolidado["precio_unitario"].fillna(0)
+df_consolidado["vendedor"] = df_consolidado["vendedor"].fillna("Sin vendedor")
+df_consolidado["metodo_pago"] = df_consolidado["metodo_pago"].fillna("Sin especificar")
+
+# Verificar que ya no haya valores nulos
+print(df_consolidado.isnull().sum())
+
+# Guardar el archivo limpio
+df_consolidado.to_excel("consolidado_limpio.xlsx", index=False)
+print("Archivo guardado correctamente.")
+
+  # ============================================
+# NUEVO ANALISIS - rama "mejoras"
+# ============================================
+
+# Pregunta 6: Precio promedio de venta por categoria
+precio_promedio_categoria = df_consolidado.groupby('categoria')['precio_unitario'].mean()
+
+print("Precio promedio por categoria:")
+print(precio_promedio_categoria)
+
+# Pregunta 7: Cantidad de transacciones por vendedor
+transacciones_por_vendedor = df_consolidado.groupby('vendedor')['precio_unitario'].count()
+
+print("Cantidad de transacciones por vendedor:")
+print(transacciones_por_vendedor)
+
+# Guardar este analisis extra en un nuevo archivo
+resumen_extra = pd.DataFrame({
+    'precio_promedio': precio_promedio_categoria
+})
+
+resumen_extra.to_excel("analisis_extra.xlsx")
+
+print("Analisis extra guardado correctamente.")
