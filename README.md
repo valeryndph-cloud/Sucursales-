@@ -28,3 +28,13 @@ pip install pandas
 ```
 
 Una vez instalada la biblioteca, el proyecto estará listo para ejecutarse.
+
+## Cómo ejecutar el proyecto
+
+Para ejecutar el análisis de ventas, se debe abrir una terminal en la carpeta del proyecto y ejecutar el archivo principal:
+
+```bash
+python analisis_rama_36.py
+```
+
+El programa realiza el análisis de los datos de ventas y permite obtener información sobre las categorías, vendedores, productos y métodos de pago.
