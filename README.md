@@ -58,3 +58,11 @@ El análisis de los datos permitió obtener los siguientes resultados:
 | Mayor participación de vendedor | Camila Ruiz — 29,5 %                           |
 | Productos con mayor frecuencia  | Cargador USB-C y Jean clásico — 10 apariciones |
 | Método de pago con mayor valor  | Efectivo — $1.535.100                          |
+
+## Conclusión final
+
+El análisis de las ventas permitió identificar los resultados más importantes del negocio.
+
+Si fuera el dueño del negocio, reforzaría la venta de la categoría **Electrónica**, ya que presenta el mayor valor acumulado. También revisaría las estrategias comerciales de los vendedores con menor participación para identificar oportunidades de mejora.
+
+Además, mantendría disponibles los diferentes métodos de pago y prestaría atención a los productos con mayor frecuencia de venta para asegurar su disponibilidad.
